@@ -50,5 +50,48 @@ def find_neigbohrs():
 
 
 
-
 find_neigbohrs()
+
+class MF(nn.Module):
+
+    def __init__(self, num_users, num_items, emb_dim, init):
+        super().__init__()
+        self.user_emb = nn.Embedding(num_embeddings=num_users, embedding_dim=emb_dim)
+        self.item_emb = nn.Embedding(num_embeddings=num_items, embedding_dim=emb_dim)
+
+        self.fc1 = nn.Linear(emb_dim, 128)
+        self.fc2 = nn.Linear(128, 64)
+        self.fc3 = nn.Linear(64, 1)
+        self.relu = nn.ReLU()
+        self.sigmoid = nn.Sigmoid()
+
+        # add bias
+        self.user_bias = nn.Parameter(torch.zeros(num_users))
+        self.item_bias = nn.Parameter(torch.zeros(num_items))
+        self.offset = nn.Parameter(torch.zeros(1))
+
+        if init:
+            self.user_emb.weight.data.uniform_(0., 0.5)
+            self.item_emb.weight.data.uniform_(0., 0.5)
+
+    def forward(self, user, item):
+        user_emb = self.user_emb(user)
+        item_emb = self.item_emb(item)
+        element_product = (user_emb * item_emb).sum(1)
+
+        x = self.relu(self.fc1(element_product))
+        x = self.relu(self.fc2(x))
+        x = self.sigmoid(self.fc3(x))
+
+        user_b = self.user_bias[user]
+        item_b = self.item_bias[item]
+        # element_product += user_b + item_b + self.offset
+
+        return x + user_b + item_b + self.offset
+
+
+n_users = len(df_user_item.userId.unique())
+n_items = len(df_user_item.movieId.unique())
+mf_model = MF(n_users, n_items, emb_dim=32, init=True)
+mf_model.to(device)
+print(mf_model)
