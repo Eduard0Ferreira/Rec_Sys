@@ -43,7 +43,6 @@ class MF(nn.Module):
 
         user_b = self.user_bias[user]
         item_b = self.item_bias[item]
-        # element_product += user_b + item_b + self.offset
 
         return x.squeeze() + user_b + item_b + self.offset
 
@@ -51,7 +50,7 @@ class MF(nn.Module):
 
         # train the model
         loss_fun = nn.MSELoss()
-        optimizer = optim.Adam(self.parameters(), lr=.001)
+        optimizer = optim.AdamW(self.parameters(), lr=.001)
         # initialize accuracies as empties
         train_losses = []
         val_losses = []
@@ -92,3 +91,27 @@ class MF(nn.Module):
             val_losses.append(loss)
 
         return train_losses, val_losses
+
+    def calculate_rmse(self, test_loader):
+        self.eval()  # Set the model to evaluation mode
+        mse = 0.0
+        num_samples = 0
+
+        with torch.no_grad():
+            for x, y in test_loader:
+                user, item = x[:, 0], x[:, 1]
+                user = user.to(device)
+                item = item.to(device)
+                rating = y.to(device)
+
+                # Predict ratings
+                predicted_rating = self(user, item)
+
+                # Calculate squared errors
+                squared_error = (predicted_rating - rating) ** 2
+                mse += squared_error.sum().item()
+                num_samples += len(rating)
+
+        mse /= num_samples
+
+        return np.sqrt(mse)

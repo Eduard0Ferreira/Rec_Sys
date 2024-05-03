@@ -53,9 +53,9 @@ class MovieLens:
             self.df_ratings[c] = d[c].transform(self.df_ratings[c])
 
         matrix = self.df_ratings[['userId', 'movieId', 'rating']]
-        X = list(zip(matrix.userId.values, matrix.movieId.values))
+        x = list(zip(matrix.userId.values, matrix.movieId.values))
         y = matrix.rating.values
-        data_t = torch.tensor(X)
+        data_t = torch.tensor(x)
         labels = torch.tensor(y)
 
         # split the data
@@ -71,8 +71,8 @@ class MovieLens:
 
         return train_loader, test_loader
 
-    def get_movie(self, id_movie: int) -> dict:
-        return self.df_movie.iloc[id_movie]
+    def get_movies(self) -> pd.DataFrame:
+        return self.df_movie[['movieId', 'title']]
 
     def num_user_item(self):
         return self.df_ratings['userId'].nunique(), self.df_ratings['movieId'].nunique()
@@ -81,11 +81,5 @@ class MovieLens:
         return self.df_ratings.pivot(index='userId', columns='movieId', values='rating').fillna(0)
 
     def get_ids(self) -> (pd.Series, pd.Series):
-        print(type(self.df_ratings['userId'].unique()))
+        # print(type(self.df_ratings['userId'].unique()))
         return self.df_ratings['userId'].unique(), self.df_ratings['movieId'].unique()
-
-
-
-
-
-
