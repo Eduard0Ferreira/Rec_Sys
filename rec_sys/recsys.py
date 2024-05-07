@@ -16,7 +16,7 @@ class RecSys:
         self.movies = movies
 
     def make_recommendations(self, user_id, n=10):
-        # get predictions from trained model
+        # get predictions from model trained
         user_input = torch.full((len(self.item_ids),), user_id, dtype=torch.long)
         item_input = torch.tensor(self.item_ids, dtype=torch.long)
         predictions = self.model(user_input, item_input)
@@ -26,7 +26,7 @@ class RecSys:
 
         for i, rating in enumerate(user_ratings):
             if rating != 0:
-                predictions[i] = float('-1')  # set to negative evaluation movies watched
+                predictions[i] = float('-1')  # set to negative the movies watched
 
         # Get indices of top-N predictions
         top_n_indices = torch.topk(predictions, n).indices.cpu().numpy()
@@ -40,3 +40,5 @@ class RecSys:
             recommendations.append({'movie_name': title, 'predicted_rating': predicted_rating})
 
         return recommendations
+
+
