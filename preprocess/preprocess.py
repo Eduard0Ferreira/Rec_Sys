@@ -7,6 +7,7 @@ from sklearn.preprocessing import LabelEncoder
 import torch
 from sklearn.model_selection import train_test_split
 from torch.utils.data import TensorDataset, DataLoader
+import os
 
 
 #
@@ -83,3 +84,81 @@ class MovieLens:
     def get_ids(self) -> (pd.Series, pd.Series):
         # print(type(self.df_ratings['userId'].unique()))
         return self.df_ratings['userId'].unique(), self.df_ratings['movieId'].unique()
+
+
+class Tags_Movielens:
+
+    def __init__(self):
+        self.df_tags = pd.read_csv('../dataset/ml-latest-small/tags.csv', sep=',')
+        self.df_links = pd.read_csv('../dataset/ml-latest-small/links.csv', sep=',')
+
+    def preprocess(self):
+        tags = pd.merge(self.df_tags, self.df_links, on='movieId', how='inner')
+        tags.drop(['tmdbId', 'timestamp'], inplace=True, axis=1)
+        # group tags by imdbId
+        tags['imdbId'] = tags['imdbId'].astype(str)
+        tags['tag'] = tags['tag'].astype(str)
+        df_group_tag = tags.groupby('imdbId')['tag'].apply(lambda x: ", ".join(x)).reset_index()
+        df_group_tag.to_csv('../dataset/processed/tags.csv', index=False)
+
+
+class ProcessReviews:
+    def __init__(self):
+        home = False
+        self.user = ''
+
+        if home:
+            self.user = 'eduardo'
+        else:
+            self.user = 'eduardoferreira'
+
+        self.folder_path = ''
+
+    def start(self):
+        test_pos = ["test", "urls_pos"]
+        test_neg = ["test", "urls_neg"]
+        train_pos = ["train", "urls_pos"]
+        train_neg = ["train", "urls_neg"]
+
+        self.folder_path = f'/home/{self.user}/Dataset/aclImdb/test/pos'
+
+        # df_test_neg = preprocess()
+        # df_test_pos
+        # df_train_neg
+        # df_train_pos
+
+    def preprocess(self, filename):
+        dfs = []
+        for filename in os.listdir(self.folder_path):
+            if filename.endswith('.txt'):
+                # Extract id and rating from the filename
+                id_rating = os.path.splitext(filename)[0]
+                id_, rating = id_rating.split('_')
+                # Read the content of the file
+                file_path = os.path.join(self.folder_path, filename)
+                with open(file_path, 'r', encoding='utf-8') as file:
+                    review = file.read()
+
+                # Create a DataFrame for the current file
+                df = pd.DataFrame({'id': [id_], 'rating': [rating], 'review': [review]})
+
+                # Append the DataFrame to the list
+                dfs.append(df)
+
+        # Concatenate all DataFrames
+        df = pd.concat(dfs)
+        df['id'] = df['id'].astype(int)
+
+        df_url_ = pd.read_csv(f'../../../Dataset/aclImdb/{filename[0]}/{filename[1]}.txt', sep='\t', names=['url'])
+        df_url = df_url_.url.str.split(r"http://www.imdb.com/title/|/usercomments", expand=True)
+        df_url = df_url.reset_index(drop=True)
+        df_url.rename(columns={1: 'imdbId'}, inplace=True)
+        df_url = pd.DataFrame(df_url['imdbId'].apply(lambda x: x.split('tt')[-1]))
+        df_res = pd.merge(df, df_url, left_on='id', right_index=True)
+
+        if filename[1] == 'urls_neg':
+            df_res['sentiment'] = 0
+        else:
+            df_res['sentiment'] = 0
+
+        return df_res

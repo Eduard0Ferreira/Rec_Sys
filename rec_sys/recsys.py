@@ -26,7 +26,7 @@ class RecSys:
 
         for i, rating in enumerate(user_ratings):
             if rating != 0:
-                predictions[i] = float('-1')  # set to negative evaluation movies watched
+                predictions[i] = float('-1')  # set to negative the watched movies
 
         # Get indices of top-N predictions
         top_n_indices = torch.topk(predictions, n).indices.cpu().numpy()
