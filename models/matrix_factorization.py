@@ -93,7 +93,7 @@ class MF(nn.Module):
         return train_losses, val_losses
 
     def calculate_rmse(self, test_loader):
-        self.eval()  # Set the model to evaluation mode
+        self.eval()
         mse = 0.0
         num_samples = 0
 

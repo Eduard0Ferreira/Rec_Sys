@@ -42,7 +42,7 @@ class MovieLens:
         self.df_ratings = pd.read_csv('../dataset/ml-latest-small/ratings.csv')
         self.df_movie = pd.read_csv('../dataset/ml-latest-small/movies.csv')
 
-    def dataset(self, batch_size) -> (DataLoader, DataLoader):
+    def dataset(self, batch_size: int) -> (DataLoader, DataLoader):
         """
         Get dataframe to process, apply the encoder for index the user and movie
         :return: X and y in torch tensor format
@@ -56,6 +56,7 @@ class MovieLens:
         matrix = self.df_ratings[['userId', 'movieId', 'rating']]
         x = list(zip(matrix.userId.values, matrix.movieId.values))
         y = matrix.rating.values
+
         data_t = torch.tensor(x)
         labels = torch.tensor(y)
 
@@ -71,6 +72,17 @@ class MovieLens:
         test_loader = DataLoader(test_dataset, batch_size=test_dataset.tensors[0].shape[0])
 
         return train_loader, test_loader
+
+    def dataset_encoder(self, batch_size: int) -> DataLoader:
+        matrix = torch.tensor(self.get_matrix().values)
+
+        # convert to a pytorch
+        train_dataset = TensorDataset(matrix)
+
+        # train dataloaders
+        train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, drop_last=True)
+
+        return train_loader
 
     def get_movies(self) -> pd.DataFrame:
         return self.df_movie[['movieId', 'title']]
