@@ -116,7 +116,7 @@ class Tags_Movielens:
 
 class ProcessReviews:
     def __init__(self):
-        home = False
+        home = True
         self.user = ''
 
         if home:
@@ -126,25 +126,29 @@ class ProcessReviews:
 
         self.folder_path = ''
 
+        self.train = "train"
+        self.test = "test"
+        self.url_pos = "urls_pos"
+        self.url_neg = "urls_neg"
+
     def start(self):
-        test_pos = ["test", "urls_pos"]
-        test_neg = ["test", "urls_neg"]
-        train_pos = ["train", "urls_pos"]
-        train_neg = ["train", "urls_neg"]
 
-        self.folder_path = f'/home/{self.user}/Dataset/aclImdb/test/pos'
+        df_test_pos = self.preprocess(self.test, self.url_pos)
+        df_test_neg = self.preprocess(self.test, self.url_neg)
+        df_train_pos = self.preprocess(self.train, self.url_pos)
+        df_train_neg = self.preprocess(self.train, self.url_neg)
 
-        # df_test_neg = preprocess()
-        # df_test_pos
-        # df_train_neg
-        # df_train_pos
+        frames = [df_test_neg, df_test_pos, df_train_neg, df_train_pos]
+        df_imdb = pd.concat(frames, ignore_index=True)
+        df_imdb.to_csv('../dataset/processed/imdb_reviews.csv', sep=',', index=False)
 
-    def preprocess(self, filename):
+    def preprocess(self, dataset, sentiment):
+        self.folder_path = f'/home/{self.user}/Dataset/aclImdb/{dataset}/{sentiment.split("_")[1]}'
         dfs = []
         for filename in os.listdir(self.folder_path):
             if filename.endswith('.txt'):
                 # Extract id and rating from the filename
-                id_rating = os.path.splitext(filename)[0]
+                id_rating = os.path.splitext(filedescribename)[0]
                 id_, rating = id_rating.split('_')
                 # Read the content of the file
                 file_path = os.path.join(self.folder_path, filename)
@@ -161,15 +165,16 @@ class ProcessReviews:
         df = pd.concat(dfs)
         df['id'] = df['id'].astype(int)
 
-        df_url_ = pd.read_csv(f'../../../Dataset/aclImdb/{filename[0]}/{filename[1]}.txt', sep='\t', names=['url'])
+        path = f'../../../Dataset/aclImdb/{dataset}/{sentiment}.txt'
+        df_url_ = pd.read_csv(path, sep='\t', names=['url'])
         df_url = df_url_.url.str.split(r"http://www.imdb.com/title/|/usercomments", expand=True)
         df_url = df_url.reset_index(drop=True)
         df_url.rename(columns={1: 'imdbId'}, inplace=True)
         df_url = pd.DataFrame(df_url['imdbId'].apply(lambda x: x.split('tt')[-1]))
         df_res = pd.merge(df, df_url, left_on='id', right_index=True)
 
-        if filename[1] == 'urls_neg':
-            df_res['sentiment'] = 0
+        if sentiment.split("_")[1] == "pos":
+            df_res['sentiment'] = 1
         else:
             df_res['sentiment'] = 0
 

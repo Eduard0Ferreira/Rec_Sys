@@ -7,11 +7,11 @@
     <list default="true" id="a002ae75-0ec8-40c2-8cac-569000101fa4" name="Changes" comment="Rec sys">
       <change beforePath="$PROJECT_DIR$/.idea/Rec_Sys.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Rec_Sys.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notebooks/auto_encoder.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/auto_encoder.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notebooks/text_process_.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/text_process_.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notebooks/main_notebook.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/main_notebook.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notebooks/test.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/test.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/preprocess/preprocess.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/preprocess/preprocess.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/preprocess/preprocess.py" beforeDir="false" afterPath="$PROJECT_DIR$/preprocess/preprocess.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rec_sys/recsys.py" beforeDir="false" afterPath="$PROJECT_DIR$/rec_sys/recsys.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,21 +42,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.preprocess.executor&quot;: &quot;Run&quot;,
-    &quot;Python.recsys.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/eduardoferreira/PycharmProjects/Rec_Sys&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.preprocess.executor": "Run",
+    "Python.recsys.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/home/eduardo/PycharmProjects/Rec_Model",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Python.recsys">
     <configuration name="preprocess" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Rec_Sys" />
@@ -135,6 +135,7 @@
       <workItem from="1715354233400" duration="1464000" />
       <workItem from="1715355801411" duration="43000" />
       <workItem from="1715355851357" duration="5607000" />
+      <workItem from="1715376789095" duration="7637000" />
     </task>
     <task id="LOCAL-00001" summary="Rec sys">
       <option name="closed" value="true" />
@@ -152,7 +153,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Rec sys" />
-    <option name="LAST_COMMIT_MESSAGE" value="Rec sys" />
+    <MESSAGE value="AutoEncoder" />
+    <option name="LAST_COMMIT_MESSAGE" value="AutoEncoder" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Rec_Sys$preprocess.coverage" NAME="preprocess Coverage Results" MODIFIED="1714750401593" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/preprocess" />
