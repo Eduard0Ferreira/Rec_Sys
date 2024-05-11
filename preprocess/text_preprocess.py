@@ -39,6 +39,7 @@ def get_wordnet_pos(word):
     else:
         return wordnet.NOUN
 
+
 class Preprocessor:
     def __init__(self):
         super().__init__()

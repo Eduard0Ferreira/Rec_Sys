@@ -8,6 +8,7 @@ import torch
 from sklearn.model_selection import train_test_split
 from torch.utils.data import TensorDataset, DataLoader
 import os
+from sklearn.cluster import KMeans
 
 
 #
@@ -41,6 +42,7 @@ class MovieLens:
     def __init__(self):
         self.df_ratings = pd.read_csv('../dataset/ml-latest-small/ratings.csv')
         self.df_movie = pd.read_csv('../dataset/ml-latest-small/movies.csv')
+        self.matrix = self.df_ratings.pivot(index='userId', columns='movieId', values='rating').fillna(0)
 
     def dataset(self, batch_size: int) -> (DataLoader, DataLoader):
         """
@@ -74,7 +76,7 @@ class MovieLens:
         return train_loader, test_loader
 
     def dataset_encoder(self, batch_size: int) -> DataLoader:
-        matrix = torch.tensor(self.get_matrix().values)
+        matrix = torch.tensor(self.matrix.values)
 
         # convert to a pytorch
         train_dataset = TensorDataset(matrix)
@@ -91,10 +93,9 @@ class MovieLens:
         return self.df_ratings['userId'].nunique(), self.df_ratings['movieId'].nunique()
 
     def get_matrix(self) -> pd.DataFrame:
-        return self.df_ratings.pivot(index='userId', columns='movieId', values='rating').fillna(0)
+        return self.matrix
 
     def get_ids(self) -> (pd.Series, pd.Series):
-        # print(type(self.df_ratings['userId'].unique()))
         return self.df_ratings['userId'].unique(), self.df_ratings['movieId'].unique()
 
 
@@ -148,7 +149,7 @@ class ProcessReviews:
         for filename in os.listdir(self.folder_path):
             if filename.endswith('.txt'):
                 # Extract id and rating from the filename
-                id_rating = os.path.splitext(filedescribename)[0]
+                id_rating = os.path.splitext(filename)[0]
                 id_, rating = id_rating.split('_')
                 # Read the content of the file
                 file_path = os.path.join(self.folder_path, filename)
