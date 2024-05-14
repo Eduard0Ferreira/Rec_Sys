@@ -79,7 +79,6 @@ class Preprocessor:
         self.text = " ".join(a)
 
     def stemming(self):
-        print('stemming', self.text)
         snow = SnowballStemmer('english')
         a = [snow.stem(i) for i in word_tokenize(self.text)]
         self.text = " ".join(a)
