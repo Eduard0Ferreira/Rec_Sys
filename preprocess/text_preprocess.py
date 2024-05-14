@@ -13,18 +13,7 @@ from nltk.stem import WordNetLemmatizer
 nltk.download('punkt')
 nltk.download('averaged_perceptron_tagger')
 nltk.download('wordnet')
-# for model-building
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LogisticRegression
-from sklearn.naive_bayes import MultinomialNB
-from sklearn.metrics import classification_report, f1_score, accuracy_score, confusion_matrix
-from sklearn.metrics import roc_curve, auc, roc_auc_score
-# bag of words
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.feature_extraction.text import CountVectorizer
-# for word embedding
-import gensim
-from gensim.models import Word2Vec
+import os
 
 
 def get_wordnet_pos(word):
@@ -40,7 +29,7 @@ def get_wordnet_pos(word):
         return wordnet.NOUN
 
 
-class Preprocessor:
+class Preprocesstext:
     def __init__(self):
         super().__init__()
         self.text = ''
@@ -82,3 +71,70 @@ class Preprocessor:
         snow = SnowballStemmer('english')
         a = [snow.stem(i) for i in word_tokenize(self.text)]
         self.text = " ".join(a)
+
+
+class PreprocessReviews:
+    def __init__(self):
+        home = False
+        self.user = ''
+
+        if home:
+            self.user = 'eduardo'
+        else:
+            self.user = 'eduardoferreira'
+
+        self.folder_path = ''
+
+        self.train = "train"
+        self.test = "test"
+        self.url_pos = "urls_pos"
+        self.url_neg = "urls_neg"
+
+    def start(self):
+
+        df_test_pos = self.preprocess(self.test, self.url_pos)
+        df_test_neg = self.preprocess(self.test, self.url_neg)
+        df_train_pos = self.preprocess(self.train, self.url_pos)
+        df_train_neg = self.preprocess(self.train, self.url_neg)
+
+        frames = [df_test_neg, df_test_pos, df_train_neg, df_train_pos]
+        df_imdb = pd.concat(frames, ignore_index=True)
+        df_imdb.to_csv('../dataset/processed/imdb_reviews.csv', sep=',', index=False)
+
+    def preprocess(self, dataset, sentiment):
+        self.folder_path = f'/home/{self.user}/Dataset/aclImdb/{dataset}/{sentiment.split("_")[1]}'
+        dfs = []
+        for filename in os.listdir(self.folder_path):
+            if filename.endswith('.txt'):
+                # Extract id and rating from the filename
+                id_rating = os.path.splitext(filename)[0]
+                id_, rating = id_rating.split('_')
+                # Read the content of the file
+                file_path = os.path.join(self.folder_path, filename)
+                with open(file_path, 'r', encoding='utf-8') as file:
+                    review = file.read()
+
+                # Create a DataFrame for the current file
+                df = pd.DataFrame({'id': [id_], 'rating': [rating], 'review': [review]})
+
+                # Append the DataFrame to the list
+                dfs.append(df)
+
+        # Concatenate all DataFrames
+        df = pd.concat(dfs)
+        df['id'] = df['id'].astype(int)
+
+        path = f'../../../Dataset/aclImdb/{dataset}/{sentiment}.txt'
+        df_url_ = pd.read_csv(path, sep='\t', names=['url'])
+        df_url = df_url_.url.str.split(r"http://www.imdb.com/title/|/usercomments", expand=True)
+        df_url = df_url.reset_index(drop=True)
+        df_url.rename(columns={1: 'imdbId'}, inplace=True)
+        df_url = pd.DataFrame(df_url['imdbId'].apply(lambda x: x.split('tt')[-1]))
+        df_res = pd.merge(df, df_url, left_on='id', right_index=True)
+
+        if sentiment.split("_")[1] == "pos":
+            df_res['sentiment'] = 1
+        else:
+            df_res['sentiment'] = 0
+
+        return df_res
