@@ -5,18 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a002ae75-0ec8-40c2-8cac-569000101fa4" name="Changes" comment="Preprocess complement - conflict">
-      <change beforePath="$PROJECT_DIR$/.idea/Rec_Sys.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Rec_Sys.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/notebooks/text_classification.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notebooks/text_process_.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/text_process_.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/preprocess/preprocess.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/preprocess/preprocess.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/preprocess/preprocess.py" beforeDir="false" afterPath="$PROJECT_DIR$/preprocess/preprocess.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/preprocess/text_preprocess.py" beforeDir="false" afterPath="$PROJECT_DIR$/preprocess/text_preprocess.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Jupyter Notebook" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -42,21 +44,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.preprocess.executor": "Run",
-    "Python.recsys.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "/home/eduardoferreira/PycharmProjects/Rec_Sys",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.preprocess.executor&quot;: &quot;Run&quot;,
+    &quot;Python.recsys.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/eduardoferreira/PycharmProjects/Rec_Sys&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Python.recsys">
     <configuration name="preprocess" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Rec_Sys" />
@@ -135,7 +138,9 @@
       <workItem from="1715354233400" duration="1464000" />
       <workItem from="1715355801411" duration="43000" />
       <workItem from="1715355851357" duration="5607000" />
-      <workItem from="1715706377090" duration="2716000" />
+      <workItem from="1715706377090" duration="3160000" />
+      <workItem from="1715781483478" duration="6713000" />
+      <workItem from="1715790112583" duration="8054000" />
     </task>
     <task id="LOCAL-00001" summary="Rec sys">
       <option name="closed" value="true" />
@@ -145,15 +150,35 @@
       <option name="project" value="LOCAL" />
       <updated>1714766316324</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Preprocess complement - conflict">
+      <option name="closed" value="true" />
+      <created>1715709819818</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1715709819818</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Rec sys" />
-    <option name="LAST_COMMIT_MESSAGE" value="Rec sys" />
+    <MESSAGE value="Preprocess complement - conflict" />
+    <option name="LAST_COMMIT_MESSAGE" value="Preprocess complement - conflict" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Rec_Sys$preprocess.coverage" NAME="preprocess Coverage Results" MODIFIED="1714750401593" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/preprocess" />
